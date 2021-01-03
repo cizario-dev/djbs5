@@ -1,0 +1,115 @@
+{% extends 'layouts/default.html' %}
+{% load static %}
+
+{% block content %}
+<main class="main" role="main">
+
+  <div class="container pt-5 pb-5">
+   {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show rounded-0" role="alert">
+      <strong class="text-uppercase">{{ message.tags }}!</strong> {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="container pt-5 pb-5">
+    <div class="row">
+      <div class="offset-md-3 col-md-6">
+        <form class="form-contact needs-validation" method="POST" novalidate role="form">
+          {% csrf_token %}
+  
+          <div class="mb-3">
+            {{ form.subject }}
+            {% if form.subject.errors %}
+              {% for error in form.subject.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            {{ form.gender }}
+            {% if form.gender.errors %}
+              {% for error in form.gender.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            {% endif %}
+          </div>
+  
+          <div class="mb-3 row">
+            <div class="col">
+              {{ form.first_name }}
+              {% if form.first_name.errors %}
+                {% for error in form.first_name.errors %}
+                  <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+            <div class="col">
+              {{ form.last_name }}
+              {% if form.last_name.errors %}
+                {% for error in form.last_name.errors %}
+                  <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            {{ form.organization }}
+          </div>
+          <div class="mb-3">
+            {{ form.job_title }}
+          </div>
+  
+          <div class="mb-3">
+            {{ form.phone }}
+            {% if form.phone.errors %}
+              {% for error in form.phone.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            {{ form.email }}
+            {% if form.email.errors %}
+              {% for error in form.email.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            {% endif %}
+          </div>
+  
+          <div class="mb-3">
+            {{ form.message }}
+            {% if form.message.errors %}
+              {% for error in form.message.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            {% endif %}
+          </div>
+  
+          <div class="mb-3">
+            <div class="form-check">
+              {{ form.subscribe }}
+              <label class="form-check-label" for="id_subscribe">Would you like to receive our newsletter?</label>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <div class="form-check">
+              {{ form.cc_myself }}
+              <label class="form-check-label" for="id_cc_myself">Send me a copy of the form.</label>
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <button type="submit" class="btn btn-primary rounded-0 shadow-none"><span class="loading text-capitalize">Send</span></button>
+          </div>
+          <small class="form-text text-muted">Fields marked with (*) are required.</small>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
